@@ -1,0 +1,12 @@
+#addMemberButton {
+  margin-bottom: 10px;
+}
+
+
+tbody tr:hover:not(th) {
+  background-color: aliceblue;
+  cursor: pointer;
+}
+tbody tr:nth-child(odd) {
+  background-color: #ECECED;
+}

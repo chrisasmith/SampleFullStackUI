@@ -1,0 +1,33 @@
+<div class="container-fluid">
+  <button id="addMemberButton" class="btn btn-primary pull-right" (click)="goToAddMemberForm()">Add Member</button>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Member ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Job Title</th>
+        <th>Racing Team</th>
+        <th>Status</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor='let member of (appService.members$ | async )?.values?.reverse() as members' (click)="editMember(member)">
+        <td>{{member?.id}}</td>
+        <td>{{member?.firstName}}</td>
+        <td>{{member?.lastName}}</td>
+        <td>{{member?.jobTitle}}</td>
+        <td>{{setTeamName(member?.team)}}</td>
+        <td>{{member?.status}}</td>
+        <td>
+          <button type="button"
+                  class="btn btn-default"
+                  (click)="deleteMemberById($event, member)">
+            <i class="fa fa-trash"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

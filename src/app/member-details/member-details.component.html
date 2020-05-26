@@ -1,0 +1,77 @@
+<div class="container-fluid col-md-6">
+    <h3 class="text-center lead">{{pageTitle}}</h3>
+    <br/>
+    <form class="member-form" [formGroup]="memberForm" (ngSubmit)="onSubmit(memberForm)">
+        <div>
+            <div class="row">
+                <div class="col-md-6">
+                    <input formControlName="firstName"
+                           type="text"
+                           class="form-control"
+                           id="firstName"
+                           placeholder="First Name"/>
+                    <div class="invalid-feedback"
+                         *ngIf="mf.firstName.touched && mf.firstName.errors?.required">
+                        Please add a First Name.
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <input formControlName="lastName"
+                           type="text"
+                           class="form-control"
+                           id="lastName"
+                           placeholder="Last Name"/>
+                    <div class="invalid-feedback"
+                         *ngIf="mf.lastName.touched && mf.lastName.errors?.required">
+                        Please add a Last Name.
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col-md-6">
+                    <input formControlName="jobTitle"
+                           type="text"
+                           class="form-control"
+                           id="jobTitle"
+                           placeholder="Job Title"/>
+                    <div class="invalid-feedback"
+                         *ngIf="mf.jobTitle.touched && mf.jobTitle.errors?.required">
+                        Please add a Job Title.
+                    </div>
+                </div>
+                <!--We may have to make a service call to get this list-->
+                <div class="col-md-6">
+                    <select id="team" class="custom-select" formControlName="team">
+                        <option value="" disabled selected hidden>Select a Team</option>
+                        <option *ngFor="let team of (appService?.teams$ | async) as teams" [value]="team.id">{{ team.teamName }}</option>
+                    </select>
+
+                    <div class="invalid-feedback"
+                         *ngIf="mf.team.touched && mf.team.errors?.required">
+                        Please select a Team.
+                    </div>
+                </div>
+
+            </div>
+            <br/>
+            <div class="form-group col-md-6">
+                <div class="row">
+                    <label id="activeStatus" class="md-check lead">
+                        <input type="radio" value="Active" name="status" formControlName="status"/> Active
+                    </label>
+                    <label class="md-check lead">
+                        <input type="radio" value="Inactive" name="status" formControlName="status"/> Inactive
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <button type="button" *ngIf="editMode" class="btn btn-danger ml-2 delete-btn" (click)="deleteMember()">Delete</button>
+            <button type="button" class="btn btn-dark ml-2" (click)="returnToList()">Cancel</button>
+            <button type="submit" class="submit-btn btn btn-primary pull-right" [disabled]="!memberForm.valid">{{actionBtnLabel}}</button>
+        </div>
+
+    </form>
+</div>
